@@ -167,6 +167,19 @@ php artisan serve
 
 ------------------------------------------------------------------------
 
+
+## 🧪 Test Suite (Feature + Unit Tests)
+
+This project includes a fully automated PHPUnit Test Suite to ensure:
+- Role-based access control works correctly
+- Company-level multi-tenancy isolation
+- SuperAdmin/Admin invitation policies
+- URL creation, validation & permissions
+- Short urls are notpublicly resolvable and redirect to the original url
+- Authentication & Registration Flow
+
+------------------------------------------------------------------------
+
 ## 🛡 Security
 
 -   RBAC-protected routes\

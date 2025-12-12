@@ -15,6 +15,7 @@ class Invitation extends Model
         'role',
         'token',
         'accepted_at',
+        'invite_by',
     ];
 
     protected $dates = [

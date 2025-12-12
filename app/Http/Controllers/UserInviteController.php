@@ -72,20 +72,21 @@ class UserInviteController extends Controller
             return back()->withInput()->with('error', 'An invitation for this email, company and role already exists.');
         }
 
-        if ($role === 'Admin') {
-            if (!$user->hasRole('SuperAdmin')) {
-                abort(403, 'Only SuperAdmin can invite an Admin.');
+        if ($user->hasRole('SuperAdmin')) {
+            if ($role !== 'Admin') {
+                abort(403, 'SuperAdmin can only invite Admin.');
             }
-        }
+        } elseif ($user->hasRole('Admin')) {
 
-        if ($role === 'Member') {
-            if ($user->hasRole('Admin')) {
-                if ($user->company_id !== $companyId) {
-                    abort(403, 'Admin can only invite Members within their own company.');
-                }
-            } elseif (!$user->hasRole('SuperAdmin')) {
-                abort(403, 'You are not allowed to send invites.');
+            if (!in_array($role, ['Admin', 'Member'])) {
+                abort(403, 'Admin can only invite Admin or Member.');
             }
+
+            if ($user->company_id !== $companyId) {
+                abort(403, 'Admin can invite only within their own company.');
+            }
+        } else {
+            abort(403, 'You are not allowed to send invites.');
         }
         $token = (string) Str::uuid();
 
