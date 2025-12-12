@@ -1,63 +1,193 @@
-<<<<<<< HEAD
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# ⭐ Laravel URL Shortener
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A clean and scalable URL Shortening platform with Role-Based Access
+Control (RBAC)
 
-## About Laravel
+------------------------------------------------------------------------
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 🎯 Overview
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+This project is a fully-featured **Laravel URL Shortener** built for
+team-based usage with multi-company support. It includes:
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+-   🔐 Multi-role authentication (SuperAdmin, Admin, Member)\
+-   🧩 Spatie Permissions for Role-Based Access Control\
+-   🏢 Company-based multi-tenancy\
+-   🔗 URL shortening with hit analytics\
+-   🎨 Modern Bootstrap UI with SweetAlert
 
-## Learning Laravel
+------------------------------------------------------------------------
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+## 📚 Table of Contents
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+-   [✨ Features](#-features)\
+-   [🔐 Roles & Permissions](#-roles--permissions)\
+-   [🏢 Multi-Tenancy Rules](#-multi-tenancy-rules)\
+-   [🗄 Database Structure](#-database-structure)\
+-   [⚙️ Installation Guide](#️-installation-guide)\
+-   [🔑 Default SuperAdmin Login](#-default-superadmin-login)\
+-   [📌 How It Works](#-how-it-works)\
+-   [🛡 Security](#-security)\
+-   [🤝 Contributing](#-contributing)\
+-   [📄 License](#-license)
 
-## Laravel Sponsors
+------------------------------------------------------------------------
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## ✨ Features
 
-### Premium Partners
+-   Shorten long URLs instantly\
+-   Auto-increment hit tracker\
+-   Role-based permissions using Spatie\
+-   Company-level resource segregation\
+-   Admin & Member invitation system\
+-   Responsive Bootstrap UI\
+-   SweetAlert notifications\
+-   Secure redirect mechanism
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+------------------------------------------------------------------------
 
-## Contributing
+## 🔐 Roles & Permissions
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### **SuperAdmin**
 
-## Code of Conduct
+-   Manage all companies\
+-   View/manage all URLs\
+-   Manage all invites\
+-   Access the dashboard
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### **Admin**
 
-## Security Vulnerabilities
+-   Manage URLs inside their company\
+-   Invite Admins and Members\
+-   Manage company-specific invites
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### **Member**
 
-## License
+-   Manage only the URLs they created\
+-   Dashboard access
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
-=======
-# urlshortener
->>>>>>> 8cbafc64fff256bbd03286e2bd293a7120d02fc8
+------------------------------------------------------------------------
+
+## 🏢 Multi-Tenancy Rules
+
+  Role         Own Company     Other Companies   Notes
+  ------------ --------------- ----------------- ------------------------------------
+  SuperAdmin   ✅              ✅                Full system access
+  Admin        ✅              ❌                Cannot view/manage other companies
+  Member       Only own URLs   ❌                No invitation permissions
+
+Each URL and invite has a `company_id` to enforce data isolation.
+
+------------------------------------------------------------------------
+
+## 🗄 Database Structure
+
+### Core Tables
+
+-   `users`\
+-   `companies`\
+-   `short_urls`\
+-   `invites`
+
+### Spatie Permission Tables
+
+-   `roles`\
+-   `permissions`\
+-   `model_has_roles`\
+-   `role_has_permissions`\
+-   `model_has_permissions`
+
+------------------------------------------------------------------------
+
+## ⚙️ Installation Guide
+
+### 1️⃣ Clone the repository
+
+``` bash
+git clone https://github.com/ajaysharmaofficial/urlshortener.git
+cd urlshortener
+```
+
+### 2️⃣ Install dependencies
+
+``` bash
+composer install
+npm install && npm run build
+```
+
+### 3️⃣ Setup environment variables
+
+``` bash
+cp .env.example .env
+php artisan key:generate
+```
+
+### 4️⃣ Run migrations & seeders
+
+``` bash
+php artisan migrate:fresh --seed
+```
+
+### 5️⃣ Start development server
+
+``` bash
+php artisan serve
+```
+
+------------------------------------------------------------------------
+
+## 🔑 Default SuperAdmin Login
+
+  Email                      Password
+  -------------------------- --------------
+  **superadmin@gmail.com**   **12345678**
+
+------------------------------------------------------------------------
+
+## 📌 How It Works
+
+### 🔗 Creating Short URLs
+
+-   Users can generate short URLs with a simple form.\
+-   Each URL is stored with the creator and company ID.
+
+### 🔁 Redirection Route
+
+    GET /{short_key}
+
+-   Finds the URL\
+-   Increments the hit counter\
+-   Redirects to the original URL
+
+### 📩 Invitation Flow
+
+-   Admins & SuperAdmins can send invitations\
+-   User accepts and registers\
+-   System auto-assigns role and company
+
+------------------------------------------------------------------------
+
+## 🛡 Security
+
+-   RBAC-protected routes\
+-   URL validation\
+-   Token-based invite system\
+
+------------------------------------------------------------------------
+
+## 🤝 Contributing
+
+Pull requests are welcome!\
+For major changes, open an issue first to discuss what you'd like to
+change.
+
+------------------------------------------------------------------------
+
+## 📄 License
+
+This project is open-source and licensed under the **MIT License**.
+
+## 👨‍💻 Developed By  
+**Ajay Sharma**  
+🔗 LinkedIn: https://www.linkedin.com/in/ajaysharmaofficial
+
